@@ -1,0 +1,31 @@
+{% extends 'basic_app/base.html' %}
+{% block body_block %}
+
+  {% for item in exam_list %}
+  {% if item.branch %}
+    <div class="container">
+      <h4>Submitted by: {{item.name|title}}</h4>
+      <h4>Branch: {{item.branch}}</h4>
+      <h4>Semester: {{item.semester}}</h4>
+      <h4>File: {{item.file}}</h4>
+      <h4>Sessional: {{item.sessional}}</h4>
+      <h4>Year: {{item.year}}</h4>
+
+
+
+      {% if item.published_date %}
+
+        <h4><a href="{% url 'pdf_download' pk=item.pk %}">Download</a></h4>
+      {% elif not item.published_date and user.is_authenticated and user.is_superuser %}
+      <h4>{{item.description}}</h4>
+      <p>  <a href="{% url 'paper_publish' pk=item.pk %}">Publish</a>
+        <a href="{% url 'pdf_download' pk=item.pk %}">Check</a></p>
+        <p><a href="{% url 'paper_remove' pk=item.pk %}">Delete</a></p>
+      {% endif %}
+
+    </div>
+    <hr>
+    {% endif %}
+  {% endfor %}
+
+{% endblock %}
