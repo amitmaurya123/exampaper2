@@ -22,10 +22,9 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'',include('basic_app.urls')),
 
-
     url(r'^accounts/login/$', lview.LoginView.as_view(), name='login'),    #directly let u go to login.html file
     url(r'^accounts/logout/$', lview.LogoutView.as_view(), name='logout', kwargs={'next_page': '/'}),
 
-    
+
 
 ]
